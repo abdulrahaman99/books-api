@@ -1,12 +1,11 @@
 const { Router } = require("express");
-const { route } = require("express/lib/application");
-const { getBooks } = require("../controllers/boobsController")
+const auth = require("../middlewares/books.auth");
 
+const { getBooks, deleteBook } = require("../controllers/booksController");
 
+const router = Router();
+router.route("/books").get(auth, getBooks);
 
-const Router =Router();
-router.route("/books").get(getBooks)
+router.delete("/books/:title", deleteBook);
 
-Router.route("/books").get(getBooks)
-
-module.exports=Router
+module.exports = router;
